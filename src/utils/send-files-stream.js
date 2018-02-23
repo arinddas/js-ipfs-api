@@ -6,7 +6,7 @@ const isStream = require('is-stream')
 const once = require('once')
 const prepareFile = require('./prepare-file')
 const Multipart = require('./multipart')
-const Converter = require('./converter')
+const FileStreamConverter = require('./file-stream-converter')
 
 function headers (file) {
   const name = file.path
@@ -132,7 +132,7 @@ module.exports = (send, path) => {
           options.progress(d.Bytes)
         }
       })
-      const convertedResponse = new Converter()
+      const convertedResponse = new FileStreamConverter()
       convertedResponse.once('end', () => retStream.push(null))
       convertedResponse.on('data', (d) => retStream.push(d))
       response.pipe(convertedResponse)
