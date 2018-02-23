@@ -5,6 +5,7 @@ const ConcatStream = require('concat-stream')
 const once = require('once')
 const isStream = require('is-stream')
 const OtherBuffer = require('buffer').Buffer
+const FileStreamConverter = require('../utils/file-stream-converter')
 const SendFilesStream = require('../utils/send-files-stream')
 
 module.exports = (send) => {
@@ -21,6 +22,7 @@ module.exports = (send) => {
     if (!options) {
       options = {}
     }
+    options.converter = FileStreamConverter
 
     const ok = Buffer.isBuffer(_files) ||
                isStream.readable(_files) ||
